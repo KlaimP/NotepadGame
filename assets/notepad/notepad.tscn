@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7hhgpqyu1srn"]
+[gd_scene load_steps=5 format=3 uid="uid://b7hhgpqyu1srn"]
 
 [ext_resource type="Script" path="res://assets/notepad/MainTextEdit.cs" id="1_cmlna"]
 [ext_resource type="PackedScene" uid="uid://b6l3q14mw1upy" path="res://assets/notepad/blocks/RichTextBox/rich_text_label_editable.tscn" id="1_gmgy4"]
 [ext_resource type="Script" path="res://assets/notepad/AddBlock.cs" id="2_cipn0"]
+[ext_resource type="Script" path="res://assets/notepad/SaveManager.cs" id="4_w0kr8"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -28,31 +29,31 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 
 [node name="RichTextLabel" parent="MarginContainer/VBoxContainer" node_paths=PackedStringArray("mainTextEditObject") instance=ExtResource("1_gmgy4")]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-mainTextEditObject = NodePath("../../../MainTextEdit")
+mainTextEditObject = NodePath("../../MainTextEdit")
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer" node_paths=PackedStringArray("mainTextEdit", "lastBlock")]
 layout_mode = 2
 theme_override_font_sizes/font_size = 58
 text = "+"
 script = ExtResource("2_cipn0")
-mainTextEdit = NodePath("../../../MainTextEdit")
+mainTextEdit = NodePath("../../MainTextEdit")
 lastBlock = NodePath("../RichTextLabel")
 
-[node name="MainTextEdit" type="TextEdit" parent="."]
+[node name="MainTextEdit" type="TextEdit" parent="MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_direction = 1
 layout_mode = 2
-offset_left = 30.0
-offset_top = 1790.0
-offset_right = 1050.0
-offset_bottom = 1890.0
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 50
 wrap_mode = 1
 scroll_fit_content_height = true
 script = ExtResource("1_cmlna")
 
+[node name="SaveManager" type="Node" parent="."]
+script = ExtResource("4_w0kr8")
+
 [connection signal="button_up" from="MarginContainer/VBoxContainer/Button" to="MarginContainer/VBoxContainer/Button" method="_on_button_button_up"]
-[connection signal="text_changed" from="MainTextEdit" to="MainTextEdit" method="_on_text_changed"]
+[connection signal="text_changed" from="MarginContainer/MainTextEdit" to="MarginContainer/MainTextEdit" method="_on_text_changed"]

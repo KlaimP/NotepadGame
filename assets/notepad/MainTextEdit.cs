@@ -16,7 +16,7 @@ public partial class MainTextEdit : TextEdit
 		editLabel = sender;
 		DisplayServer.VirtualKeyboardShow(sender.Text);
 		this.GrabFocus();
-		OS.DelayMsec(100);
+		OS.DelayMsec(300);
 		GD.Print(this.Size.Y);
 		int keyboardSize = DisplayServer.VirtualKeyboardGetHeight();
 		this.Position = new Vector2(30, DisplayServer.ScreenGetSize().Y - keyboardSize - this.Size.Y);
@@ -38,5 +38,8 @@ public partial class MainTextEdit : TextEdit
 			return;
 		}
 		editLabel.Text = this.Text;
+		int keyboardSize = DisplayServer.VirtualKeyboardGetHeight();
+		this.Position = new Vector2(30, DisplayServer.ScreenGetSize().Y - keyboardSize - this.Size.Y);
+		this.Position = new Vector2(30, DisplayServer.ScreenGetSize().Y - keyboardSize - this.Size.Y);
 	}
 }
